@@ -35,6 +35,13 @@ def edges(image):
         return out_arr.astype('uint8')
 
     image_array = np.array(image)
+
+    print(f"Розмір зображення: {image_array.shape}")
+    if len(image_array.shape) == 3 and image_array.shape[2] == 3:
+        print("Зображення має формат RGB.")
+    else:
+        raise ValueError("Зображення не є RGB.")
+    
     image_array = image_array.astype('int16')
     arr_shape = image_array.shape
     out_arr = np.zeros(arr_shape)
