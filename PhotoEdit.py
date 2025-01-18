@@ -64,11 +64,3 @@ def edges(image):
         first_line = second_line.copy()
 
     return Image.fromarray(reform(out_arr, 255))
-
-
-image = Image.open('img.png')  # відкриття зображення
-
-new_image = edges(image)  # використання функції бібліотеки
-
-new_image.save('processed_image.png')  # збереження
-print('Все пройшло успішно!')
