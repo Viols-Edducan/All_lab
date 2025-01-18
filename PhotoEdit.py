@@ -4,11 +4,13 @@ from PIL import Image
 
 def inversion(image):
     image_array = np.array(image)
-    print(f"Розмір зображення: {image_array.shape}")
-    if len(image_array.shape) == 3 and image_array.shape[2] == 3:
+    if len(image_array.shape) == 3:
         print("Зображення має формат RGB.")
     else:
         raise ValueError("Зображення не є RGB.")
+
+    image_array = image_array[:, :, :3]
+    print(f"Розмір зображення: {image_array.shape[:2]}")
 
     processed_image_array = 255 - image_array
 
@@ -17,11 +19,13 @@ def inversion(image):
 
 def gray(image):
     image_array = np.array(image)
-    print(f"Розмір зображення: {image_array.shape}")
-    if len(image_array.shape) == 3 and image_array.shape[2] == 3:
+    if len(image_array.shape) == 3:
         print("Зображення має формат RGB.")
     else:
         raise ValueError("Зображення не є RGB.")
+
+    image_array = image_array[:, :, :3]
+    print(f"Розмір зображення: {image_array.shape[:2]}")
 
     new_array = np.mean(image_array, axis=2, dtype='int16', out=None, keepdims=True)
     processed_image_array = np.concatenate((new_array, new_array, new_array), axis=2)
@@ -35,13 +39,14 @@ def edges(image):
         return out_arr.astype('uint8')
 
     image_array = np.array(image)
-
-    print(f"Розмір зображення: {image_array.shape}")
-    if len(image_array.shape) == 3 and image_array.shape[2] == 3:
+    if len(image_array.shape) == 3:
         print("Зображення має формат RGB.")
     else:
         raise ValueError("Зображення не є RGB.")
-    
+
+    image_array = image_array[:, :, :3]
+    print(f"Розмір зображення: {image_array.shape[:2]}")
+
     image_array = image_array.astype('int16')
     arr_shape = image_array.shape
     out_arr = np.zeros(arr_shape)
@@ -59,3 +64,11 @@ def edges(image):
         first_line = second_line.copy()
 
     return Image.fromarray(reform(out_arr, 255))
+
+
+image = Image.open('img.png')  # відкриття зображення
+
+new_image = edges(image)  # використання функції бібліотеки
+
+new_image.save('processed_image.png')  # збереження
+print('Все пройшло успішно!')
