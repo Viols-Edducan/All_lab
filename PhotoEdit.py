@@ -64,3 +64,12 @@ def edges(image):
         first_line = second_line.copy()
 
     return Image.fromarray(reform(out_arr, 255))
+
+
+def noise(img_arr: np.ndarray):
+    noise_arr = np.random.rand(1024, 1024, 3)
+    noise_arr[noise_arr > 0.9] = 100
+    noise_arr[noise_arr <= 0.1] = -100
+    noise_arr = noise_arr.astype('int32')
+
+    return np.clip(noise_arr + img_arr, a_min=0, a_max=255).astype('uint8')
