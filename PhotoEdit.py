@@ -67,7 +67,7 @@ def edges(image):
 
 
 def noise(img_arr: np.ndarray):
-    noise_arr = np.random.rand(1024, 1024, 3)
+    noise_arr = np.random.rand(*img_arr.shape)
     noise_arr[noise_arr > 0.9] = 100
     noise_arr[noise_arr <= 0.1] = -100
     noise_arr = noise_arr.astype('int32')
