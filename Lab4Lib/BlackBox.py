@@ -23,10 +23,10 @@ class BlackBox:
             start_x = c1.control_points[0][0]
             end_x = c1.control_points[0][-1]
             x_mask = (norm_x >= start_x) & (norm_x <= end_x)
-            if any(x_mask):
+            if np.any(x_mask):
                 y[x_mask] = c1.get_y_vector(norm_x[x_mask])
 
-        return y + np.random.rand(x.size) * noise * 2 - noise
+        return y + np.random.rand(x.size).reshape(*x.shape) * noise * 2 - noise
 
     @staticmethod
     def line_point(x, y, new_x):
