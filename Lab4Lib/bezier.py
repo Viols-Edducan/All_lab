@@ -28,13 +28,10 @@ class BezierCurve(object):
 
     def get_y_vector(self, x: np.ndarray):
         t = self._transform(self._a_vector[0], x)
-        ans = self.for_t_vector(t)
         return self.for_t_vector(t)[1]
 
     def get_x_vector(self, y: np.ndarray):
         t = self._transform(self._a_vector[1], y)
-        ans = self.for_t_vector(t)
-        print(y - ans[1])
         return self.for_t_vector(t)[0]
 
     def _transform(self, coeff_vector: np.ndarray, arr: np.ndarray):
